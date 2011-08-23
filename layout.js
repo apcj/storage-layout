@@ -38,7 +38,7 @@ layout = [
 	{ name: "previous", size: 4, pointsTo: "Dynamic Store" },
 	{ name: "length", size: 4 },
 	{ name: "next", size: 4, pointsTo: "Dynamic Store" },
-	{ name: "data", size: 64 }
+	{ name: "data", size: 120 }
 ]},
 { recordName: "NeoStore", fields: [
 	{ name: "inUse", size: 1 },
