@@ -24,7 +24,7 @@ layout = [
 	{ name: "inUse", size: 1 },
 	{ name: "type", size: 4 },
 	{ name: "keyIndexId", size: 4, pointsTo: "Property Index" },
-	{ name: "propBlockId", size: 8, pointsTo: "some dynamic store" },
+	{ name: "propBlock", size: 8 }, //extend to 32 bytes for short arrays and multi-property inlining
 	{ name: "prevPropId", size: 4, pointsTo: "Property" },
 	{ name: "nextPropId", size: 4, pointsTo: "Property" }
 ]},
