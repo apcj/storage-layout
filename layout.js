@@ -6,7 +6,6 @@ layout = [
 ]},
 { recordName: "Relationship", fields: [
 	{ name: "inUse", size: 1 },
-	{ name: "direction", size: 1 },
 	{ name: "firstNode", size: 4, pointsTo: "Node" },
 	{ name: "secondNode", size: 4, pointsTo: "Node" },
 	{ name: "relationshipType", size: 4, pointsTo: "Relationship Type" },
@@ -21,12 +20,21 @@ layout = [
 	{ name: "typeBlockId", size: 4, pointsTo: "String" },
 ]},
 { recordName: "Property", fields: [
-	{ name: "inUse", size: 1 },
-	{ name: "type", size: 4 },
-	{ name: "keyIndexId", size: 4, pointsTo: "Property Index" },
-	{ name: "propBlock", size: 8 }, //extend to 32 bytes for short arrays and multi-property inlining
+	{ name: "highBits", size: 1 },
 	{ name: "prevPropId", size: 4, pointsTo: "Property" },
-	{ name: "nextPropId", size: 4, pointsTo: "Property" }
+	{ name: "nextPropId", size: 4, pointsTo: "Property" },
+	{ name: "propBlock", size: 32 },
+], subrecords: [
+	{ recordName: "Property Index", fields: [
+		{ name: "inUse", size: 1 },
+		{ name: "propCount", size: 4 },
+		{ name: "keyBlockId", size: 4, pointsTo: "some dynamic store" }
+	]},
+	{ recordName: "Dynamic Store", fields: [
+		{ name: "inUse", size: 1 },
+		{ name: "next", size: 4, pointsTo: "Dynamic Store" },
+		{ name: "data", size: 120 }
+	]},
 ]},
 { recordName: "Property Index", fields: [
 	{ name: "inUse", size: 1 },
@@ -35,8 +43,6 @@ layout = [
 ]},
 { recordName: "Dynamic Store", fields: [
 	{ name: "inUse", size: 1 },
-	{ name: "previous", size: 4, pointsTo: "Dynamic Store" },
-	{ name: "length", size: 4 },
 	{ name: "next", size: 4, pointsTo: "Dynamic Store" },
 	{ name: "data", size: 120 }
 ]},

@@ -63,7 +63,7 @@ draw_layout_chart = function() {
 		.text(function(d) { return d.position + d.size; });
 		
 	var byte = field.selectAll("g.byte")
-		.data(function(d) { console.log(d); return d3.range(1, d.size); })
+		.data(function(field) { console.log(field); return d3.range(1, field.size); })
 		.enter().append("svg:g").attr("class", "byte")
 		.attr("transform", translate(width, fixed(0)));
 		
@@ -71,5 +71,14 @@ draw_layout_chart = function() {
 		.attr("y1", 0)
 		.attr("y2", 20)
 		.attr("stroke", "#CCC");
+		
+	var field = recordTypeDiv.selectAll("div.subrecord")
+		.data(function(recordType) {
+			 if (recordType["subrecords"]) {
+				return recordType["subrecords"];
+			} else {
+				return [];
+			}
+		}).enter().append("div").attr("class", "subrecord");
 		
 }
